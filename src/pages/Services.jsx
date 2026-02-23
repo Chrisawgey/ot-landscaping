@@ -1,22 +1,30 @@
 import { services } from '../data/services';
 import {
   Leaf,
+  Sprout,
   Hammer,
-  Building,
-  Scissors,
+  HardHat,
   Droplets,
+  Waves,
+  Filter,
   Snowflake,
+  Star,
+  FlaskConical,
   Check
 } from 'lucide-react';
 import CTABanner from '../components/ui/CTABanner';
 
 const iconMap = {
   Leaf,
+  Sprout,
   Hammer,
-  Building,
-  Scissors,
+  HardHat,
   Droplets,
+  Waves,
+  Filter,
   Snowflake,
+  Star,
+  FlaskConical,
 };
 
 export default function Services() {
@@ -51,10 +59,14 @@ export default function Services() {
                   id={service.id}
                   className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center scroll-mt-24`}
                 >
-                  {/* Image Placeholder */}
+                  {/* Image */}
                   <div className="lg:w-1/2">
-                    <div className="bg-gradient-to-br from-sage-light to-forest/20 rounded-3xl aspect-[4/3] flex items-center justify-center">
-                      <Icon className="w-24 h-24 text-forest/30" />
+                    <div className="rounded-3xl overflow-hidden shadow-2xl">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full aspect-[4/3] object-cover"
+                      />
                     </div>
                   </div>
 

@@ -3,10 +3,36 @@ import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const workImages = [
-  { id: 1, src: '/work-1.jpg', title: 'Lawn Renovation' },
-  { id: 2, src: '/work-2.jpg', title: 'Garden Design' },
-  { id: 3, src: '/work-3.jpg', title: 'Front Yard Transformation' },
-  { id: 4, src: '/work-4.jpg', title: 'Landscape Maintenance' },
+  {
+    id: 1,
+    src: '/work-1.jpg',
+    title: 'Lawn Renovation',
+  },
+  {
+    id: 2,
+    src: '/work-2.jpg',
+    title: 'Landscaping Project',
+  },
+  {
+    id: 3,
+    src: '/work-3.jpg',
+    title: 'Outdoor Transformation',
+  },
+  {
+    id: 4,
+    src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    title: 'Sod Installation',
+  },
+  {
+    id: 5,
+    src: '/work-4.jpg',
+    title: 'Lawn Maintenance',
+  },
+  {
+    id: 6,
+    src: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=80',
+    title: 'Property Maintenance',
+  },
 ];
 
 export default function WorkGallery() {
@@ -43,25 +69,26 @@ export default function WorkGallery() {
           </h2>
           <p className="text-lg text-stone leading-relaxed">
             Take a look at some of our recent projects. We take pride in every lawn,
-            garden, and landscape we create.
+            patio, and landscape we create.
           </p>
         </div>
 
-        {/* Image Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Gallery Grid — large featured + 4 thumbnails */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {workImages.map((image, index) => (
             <div
               key={image.id}
               onClick={() => openLightbox(index)}
-              className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer"
+              className="group relative rounded-2xl overflow-hidden cursor-pointer"
+              style={{ aspectRatio: '4/3' }}
             >
               <img
                 src={image.src}
                 alt={image.title}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all flex items-end p-4">
-                <span className="text-white font-medium">{image.title}</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                <span className="text-white font-semibold text-sm">{image.title}</span>
               </div>
             </div>
           ))}

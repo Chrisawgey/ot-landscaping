@@ -1,14 +1,18 @@
-import { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Loader2, ChevronDown } from 'lucide-react';
 import Button from '../components/ui/Button';
 
 const serviceOptions = [
-  'Landscape Design',
+  'Landscaping Maintenance',
+  'Seeding & Sod',
   'Hardscaping',
-  'Outdoor Construction',
-  'Lawn Maintenance',
-  'Irrigation Systems',
-  'Seasonal Services',
+  'Construction',
+  'Power Washing',
+  'Drainage',
+  'Gutter Cleaning',
+  'Snow Removal',
+  'Christmas Decor',
+  'Fertilizer Application',
   'Other',
 ];
 
@@ -21,15 +25,59 @@ export default function Contact() {
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [serviceOpen, setServiceOpen] = useState(false);
+  const serviceRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (serviceRef.current && !serviceRef.current.contains(e.target)) {
+        setServiceOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic would go here
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: `New Estimate Request from ${formData.name}`,
+          from_name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service || 'Not specified',
+          message: formData.message || 'No additional details provided.',
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setIsSubmitted(true);
+      } else {
+        throw new Error();
+      }
+    } catch {
+      setError('Something went wrong. Please call us directly at (201) 870-7009.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -118,11 +166,31 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="bg-gradient-to-br from-sage-light/50 to-forest/10 rounded-2xl h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-forest/30 mx-auto mb-2" />
-                  <p className="text-stone">Interactive map</p>
+              {/* What Happens Next */}
+              <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <h3 className="font-bold text-charcoal mb-5">What Happens Next?</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-forest rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">1</div>
+                    <div>
+                      <p className="font-semibold text-charcoal text-sm">We call you within 24 hours</p>
+                      <p className="text-stone text-xs mt-0.5">A real person — not a bot — will reach out to confirm your request.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-forest rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">2</div>
+                    <div>
+                      <p className="font-semibold text-charcoal text-sm">Free on-site visit</p>
+                      <p className="text-stone text-xs mt-0.5">We come to your property, walk the job, and understand your vision.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-forest rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">3</div>
+                    <div>
+                      <p className="font-semibold text-charcoal text-sm">You get a detailed written estimate</p>
+                      <p className="text-stone text-xs mt-0.5">No surprises. Clear pricing before any work begins.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -205,24 +273,41 @@ export default function Contact() {
                             placeholder="(201) 870-7009"
                           />
                         </div>
-                        <div>
-                          <label htmlFor="service" className="block text-sm font-medium text-charcoal mb-2">
+                        <div ref={serviceRef} className="relative">
+                          <label className="block text-sm font-medium text-charcoal mb-2">
                             Service Interested In
                           </label>
-                          <select
-                            id="service"
-                            name="service"
-                            value={formData.service}
-                            onChange={handleChange}
-                            className="w-full px-4 py-3.5 rounded-xl border border-sand focus:border-forest focus:ring-2 focus:ring-forest/20 outline-none transition-all bg-white text-base"
+                          <button
+                            type="button"
+                            onClick={() => setServiceOpen(!serviceOpen)}
+                            className="w-full px-4 py-3.5 rounded-xl border border-sand bg-white text-left flex items-center justify-between focus:border-forest focus:ring-2 focus:ring-forest/20 outline-none transition-all text-base"
                           >
-                            <option value="">Select a service</option>
-                            {serviceOptions.map((service) => (
-                              <option key={service} value={service}>
-                                {service}
-                              </option>
-                            ))}
-                          </select>
+                            <span className={formData.service ? 'text-charcoal' : 'text-stone/50'}>
+                              {formData.service || 'Select a service'}
+                            </span>
+                            <ChevronDown className={`w-4 h-4 text-stone transition-transform duration-200 ${serviceOpen ? 'rotate-180' : ''}`} />
+                          </button>
+
+                          {serviceOpen && (
+                            <div className="absolute z-50 w-full mt-1 bg-white border border-sand rounded-xl shadow-xl overflow-hidden">
+                              <div className="max-h-56 overflow-y-auto">
+                                {serviceOptions.map((option) => (
+                                  <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => {
+                                      setFormData({ ...formData, service: option });
+                                      setServiceOpen(false);
+                                    }}
+                                    className={`w-full px-4 py-3 text-left text-sm transition-colors hover:bg-sand-light
+                                      ${formData.service === option ? 'text-forest font-semibold bg-forest/5' : 'text-charcoal'}`}
+                                  >
+                                    {option}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -241,10 +326,23 @@ export default function Contact() {
                         />
                       </div>
 
-                      <Button type="submit" size="lg" className="w-full">
-                        Send Request
-                        <Send className="w-5 h-5" />
+                      <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                        {isLoading ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send Request
+                            <Send className="w-5 h-5" />
+                          </>
+                        )}
                       </Button>
+
+                      {error && (
+                        <p className="text-sm text-red-600 text-center font-medium">{error}</p>
+                      )}
 
                       <p className="text-sm text-stone text-center">
                         By submitting this form, you agree to our privacy policy.

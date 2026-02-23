@@ -130,12 +130,18 @@ export default function ServiceArea() {
               </ul>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="sm:col-span-2 bg-gradient-to-br from-sage-light/50 to-forest/10 rounded-2xl h-48 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-12 h-12 text-forest/30 mx-auto mb-2" />
-                <p className="text-stone">Interactive map placeholder</p>
-              </div>
+            {/* Interactive Map */}
+            <div className="sm:col-span-2 rounded-2xl overflow-hidden shadow-md h-64">
+              <iframe
+                title="OT Landscaping Service Area"
+                src="https://maps.google.com/maps?q=Union+County,NJ&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
         </div>

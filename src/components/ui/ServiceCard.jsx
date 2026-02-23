@@ -1,27 +1,29 @@
 import { Link } from 'react-router-dom';
 import {
   Leaf,
+  Sprout,
   Hammer,
-  Building,
-  Scissors,
+  HardHat,
   Droplets,
+  Waves,
+  Filter,
   Snowflake,
-  Wrench,
-  TreeDeciduous,
-  Flower2,
+  Star,
+  FlaskConical,
   ArrowRight
 } from 'lucide-react';
 
 const iconMap = {
   Leaf,
+  Sprout,
   Hammer,
-  Building,
-  Scissors,
+  HardHat,
   Droplets,
+  Waves,
+  Filter,
   Snowflake,
-  Wrench,
-  TreeDeciduous,
-  Flower: Flower2,
+  Star,
+  FlaskConical,
 };
 
 export default function ServiceCard({ service, featured = false }) {

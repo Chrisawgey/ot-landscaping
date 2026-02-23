@@ -1,47 +1,42 @@
 export const testimonials = [
   {
     id: 1,
-    name: 'Michael Rodriguez',
-    location: 'Elizabeth, NJ',
+    name: 'Lauren Lutz-Coleman',
+    location: 'Union County, NJ',
     rating: 5,
-    text: 'OT Landscaping completely transformed our backyard. What was once a plain lawn is now our favorite place to spend time as a family. The garden design they created is absolutely stunning.',
-    project: 'Complete Backyard Renovation',
-    image: '/images/testimonials/client-1.jpg'
+    text: "So grateful my neighbor introduced me to OT Landscaping. Ociel and his team do excellent work and consistently outperform any competitor I've tried. After a heavy rainstorm one Fourth of July left my yard a complete mess, they came out promptly and restored everything better than it looked before. That kind of reliability and dedication is rare — I won't use anyone else.",
+    project: 'Landscaping Maintenance',
   },
   {
     id: 2,
-    name: 'Sarah Chen',
-    location: 'Westfield, NJ',
+    name: 'Dr. Bill MacLaney',
+    location: 'Union County, NJ',
     rating: 5,
-    text: 'Professional from start to finish. They listened to our vision and brought it to life better than we imagined. The team was punctual, clean, and the quality of work is exceptional.',
-    project: 'Front Yard Landscape Design',
-    image: '/images/testimonials/client-2.jpg'
+    text: "I've been using OT Landscaping for years and the quality has never wavered. Fair pricing, exceptional results, and Ociel — the owner — is always personally available. He takes the time to understand exactly what you want and works at whatever pace fits your schedule. It's rare to find someone this conscientious and consistent. Highly recommend.",
+    project: 'Ongoing Lawn Care',
   },
   {
     id: 3,
-    name: 'David Thompson',
-    location: 'Cranford, NJ',
+    name: 'Luciano Betman',
+    location: 'Westfield, NJ',
     rating: 5,
-    text: 'We\'ve used their maintenance services for three years now. Our lawn has never looked better, and they\'re incredibly reliable. They truly care about every property they work on.',
-    project: 'Ongoing Lawn Maintenance',
-    image: '/images/testimonials/client-3.jpg'
+    text: "OT Landscaping has consistently delivered quality work for my family across multiple projects — from routine maintenance to full landscaping jobs. We've lived in Westfield for many years and take real pride in our lawn. OT has been a big part of that. Every visit they show up on time, work clean, and leave things looking sharp. Couldn't ask for better.",
+    project: 'Lawn Maintenance & Landscaping',
   },
   {
     id: 4,
-    name: 'Jennifer & Mark Williams',
-    location: 'Summit, NJ',
+    name: 'Florence Duggan',
+    location: 'Union County, NJ',
     rating: 5,
-    text: 'The garden design and landscaping they created solved our drainage issues and gave us a beautiful outdoor living space. Three years later, it still looks amazing.',
-    project: 'Garden Design & Installation',
-    image: '/images/testimonials/client-4.jpg'
+    text: "OT has been taking care of my lawn for about four years now and the results speak for themselves. Always a great job done with maximum efficiency — no wasted time, no corners cut. They handled my full fall yard cleanup and the property looked absolutely immaculate. Reliable, professional, and easy to work with. Highly recommended.",
+    project: 'Lawn Care & Fall Cleanup',
   },
   {
     id: 5,
-    name: 'Robert Martinez',
-    location: 'Union, NJ',
+    name: 'Chris V.',
+    location: 'Union County, NJ',
     rating: 5,
-    text: 'Outstanding work on our complete lawn renovation. They worked around our schedule and delivered exactly what they promised. Highly recommend OT Landscaping!',
-    project: 'Lawn Renovation',
-    image: '/images/testimonials/client-5.jpg'
-  }
+    text: "Very impressed with the work OT Landscaping did for us. They completed the job in a professional and efficient manner from start to finish — no shortcuts, no headaches. The crew was respectful of the property and the end result was exactly what we were looking for. I'd recommend them to anyone without hesitation.",
+    project: 'Landscaping Services',
+  },
 ];
