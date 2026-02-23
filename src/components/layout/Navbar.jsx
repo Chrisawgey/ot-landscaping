@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 import Button from '../ui/Button';
@@ -30,6 +31,7 @@ export default function Navbar() {
   }, [location]);
 
   return (
+    <>
     <header
       className={`
         fixed top-0 left-0 right-0 z-50 transition-all duration-300
@@ -99,51 +101,48 @@ export default function Navbar() {
 
       </div>
 
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div
-          className="lg:hidden fixed inset-0 top-0 z-40 bg-charcoal/50 backdrop-blur-sm"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-
-      {/* Mobile Menu */}
-      <div
-        className={`
-          lg:hidden fixed left-4 right-4 z-50 transition-all duration-300
-          ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}
-        `}
-        style={{ top: isScrolled ? '70px' : '84px' }}
-      >
-        <div className="bg-white rounded-2xl shadow-xl p-6 space-y-4 max-h-[calc(100vh-120px)] overflow-y-auto">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`
-                block py-3 font-medium transition-colors text-lg
-                ${location.pathname === link.path
-                  ? 'text-forest'
-                  : 'text-charcoal hover:text-forest'
-                }
-              `}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <hr className="border-sand" />
-          <a
-            href="tel:+12018707009"
-            className="flex items-center gap-2 py-3 text-charcoal font-medium text-lg"
-          >
-            <Phone className="w-5 h-5" />
-            (201) 870-7009
-          </a>
-          <Button to="/contact" className="w-full" size="lg">
-            Get Free Estimate
-          </Button>
-        </div>
-      </div>
     </header>
+
+      {createPortal(
+        <>
+          {/* Overlay */}
+          <div
+            className={`lg:hidden fixed inset-0 z-40 bg-charcoal/60 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Mobile Menu */}
+          <div
+            className={`lg:hidden fixed left-4 right-4 z-50 transition-all duration-300 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
+            style={{ top: isScrolled ? '90px' : '104px' }}
+          >
+            <div className="bg-white rounded-2xl shadow-xl p-6 space-y-4 max-h-[calc(100vh-120px)] overflow-y-auto">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block py-3 font-medium transition-colors text-lg ${location.pathname === link.path ? 'text-forest' : 'text-charcoal hover:text-forest'}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <hr className="border-sand" />
+              <a
+                href="tel:+12018707009"
+                className="flex items-center gap-2 py-3 text-charcoal font-medium text-lg"
+              >
+                <Phone className="w-5 h-5" />
+                (201) 870-7009
+              </a>
+              <Button to="/contact" className="w-full" size="lg">
+                Get Free Estimate
+              </Button>
+            </div>
+          </div>
+        </>,
+        document.body
+      )}
+    </>
   );
 }
